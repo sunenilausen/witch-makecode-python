@@ -1,45 +1,43 @@
 def on_up_repeated():
-    global direction
-    direction = "up"
-    tank.set_image(sprites.swamp.witch_back0)
-    tank.y += -1
+    global projectileX, projectileY
+    witch.set_image(sprites.swamp.witch_back0)
+    witch.y += -1
+    projectileX = 0
+    projectileY = -50
 controller.up.on_event(ControllerButtonEvent.REPEATED, on_up_repeated)
 
 def on_a_pressed():
     global projectile
-    if direction == "up":
-        projectile = sprites.create_projectile_from_side(sprites.projectile.explosion1, 0, -50)
-    elif direction == "down":
-        projectile = sprites.create_projectile_from_side(sprites.projectile.explosion1, 0, 50)
-    elif direction == "right":
-        projectile = sprites.create_projectile_from_side(sprites.projectile.explosion1, 50, 0)
-    else:
-        projectile = sprites.create_projectile_from_side(sprites.projectile.explosion1, -50, 0)
-    projectile.set_position(tank.x, tank.y)
+    projectile = sprites.create_projectile_from_side(sprites.projectile.explosion1, projectileX, projectileY)
+    projectile.set_position(witch.x, witch.y)
 controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
 
 def on_right_repeated():
-    global direction
-    direction = "right"
-    tank.set_image(sprites.swamp.witch_right0)
-    tank.x += 1
+    global projectileX, projectileY
+    witch.set_image(sprites.swamp.witch_right0)
+    witch.x += 1
+    projectileX = 50
+    projectileY = 0
 controller.right.on_event(ControllerButtonEvent.REPEATED, on_right_repeated)
 
 def on_down_repeated():
-    global direction
-    tank.set_image(sprites.swamp.witch_forward0)
-    tank.y += 1
-    direction = "down"
+    global projectileX, projectileY
+    witch.set_image(sprites.swamp.witch_forward0)
+    witch.y += 1
+    projectileX = 0
+    projectileY = 50
 controller.down.on_event(ControllerButtonEvent.REPEATED, on_down_repeated)
 
 def on_left_repeated():
-    global direction
-    direction = "left"
-    tank.set_image(sprites.swamp.witch_left0)
-    tank.x += -1
+    global projectileX, projectileY
+    witch.set_image(sprites.swamp.witch_left0)
+    witch.x += -1
+    projectileX = -50
+    projectileY = 0
 controller.left.on_event(ControllerButtonEvent.REPEATED, on_left_repeated)
 
 projectile: Sprite = None
-direction = ""
-tank: Sprite = None
-tank = sprites.create(sprites.swamp.witch_left0, SpriteKind.player)
+witch: Sprite = None
+projectileX = 0
+projectileY = 0
+witch = sprites.create(sprites.swamp.witch_left0, SpriteKind.player)
